@@ -1,3 +1,2 @@
 # outrage
-ding
-hi 
+Hi
