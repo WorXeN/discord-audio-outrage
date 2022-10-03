@@ -2,9 +2,9 @@ import discord
 from discord.ext import commands, tasks
 from discord.ext import commands
 import os
+import glob
 
-
-token = "ODA5NjE2NjgyNjk5OTgwODIx.YCXsSw.pwRyEK9Dm4anYWVxMoR22mg5bys"
+token = "ODA5NjE2NjgyNjk5OTgwODIx.GkHugW.MIKTkQkiRWy_XvbA5SYaMQJZYSWsV_jMgFwhw0"
 bot = commands.Bot(command_prefix=['-'], description="Hi im a Robot!", intents=discord.Intents.all())
 
 @bot.event
@@ -25,42 +25,33 @@ async def files(ctx):
     Alle Dateien im Ordner um die funktion abzuspielen
     """
     s = ""
-    for i in os.listdir("."):
+    liste = [x for x in glob.glob("files/*.mp3")]
+    for i in liste:
         s+=i+"\n"
-        
-    embed = discord.Embed(title="Alle Files", description=s, color=0x00dbc2)
+
+    ausgabe = s.replace("files\\","")
+    print(ausgabe)
+    embed = discord.Embed(title="Alle Files", description=ausgabe, color=0x00dbc2)
     await ctx.channel.send(embed=embed)
     
 
 @bot.command()
 async def p(ctx,audio):
-    audioliste = [x for x in os.listdir('.')]
-    a = ""
-    print(a)
-    for i in audioliste:
-        print(i+"in der loop")
-        if(i.endswith(('.mp3'))):
-            a = ".mp3"
-            break
-        if(i.endswith(('.avi'))):
-            a = ".avi"
-            break
-        if(i.endswith(('.wav'))):
-            a = ".wav"
-            break
-        if(i.endswith(('.m4a'))):
-            a = ".m4a"
-            break
-        
+
+    """
+    -p eingeben und filename aus dem -file command wählen
+    """
+
+    path = os.getcwd()
     voice_client = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     if voice_client:
-        channel = ctx.author.voice.channel   
-        voice_client.play(discord.FFmpegPCMAudio(f"{audio}"+str(a)), after=lambda e: print('done', e))
+        channel = ctx.author.voice.channel
+        voice_client.play(discord.FFmpegPCMAudio(f"files/{audio}"+".wav"), after=lambda e: print('done', e))
     
     else:
         channel = ctx.author.voice.channel
         vc = await channel.connect()
-        vc.play(discord.FFmpegPCMAudio(f"{audio}"+str(a)), after=lambda e: print('done', e))
+        vc.play(discord.FFmpegPCMAudio(f"files/{audio}"+".wav"), after=lambda e: print('done', e))
 
 
 if __name__ == '__main__':
