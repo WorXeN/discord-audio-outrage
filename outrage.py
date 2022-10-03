@@ -4,7 +4,7 @@ from discord.ext import commands
 import os
 
 
-token = "ODA5NjE2NjgyNjk5OTgwODIx.YCXsSw.pwRyEK9Dm4anYWVxMoR22mg5bys"
+token = ""
 bot = commands.Bot(command_prefix=['-'], description="Hi im a Robot!", intents=discord.Intents.all())
 
 @bot.event
