@@ -25,7 +25,7 @@ async def files(ctx):
     Alle Dateien im Ordner um die funktion abzuspielen
     """
     s = ""
-    liste = [x for x in glob.glob("files/*.mp3")]
+    liste = [x for x in glob.glob("files/*.wav")]
     for i in liste:
         s+=i+"\n"
 
@@ -37,7 +37,6 @@ async def files(ctx):
 
 @bot.command()
 async def p(ctx,audio):
-
     """
     -p eingeben und filename aus dem -file command wählen
     """
