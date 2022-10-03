@@ -4,7 +4,7 @@ from discord.ext import commands
 import os
 import glob
 
-token = "ODA5NjE2NjgyNjk5OTgwODIx.GkHugW.MIKTkQkiRWy_XvbA5SYaMQJZYSWsV_jMgFwhw0"
+token = ""
 bot = commands.Bot(command_prefix=['-'], description="Hi im a Robot!", intents=discord.Intents.all())
 
 @bot.event
@@ -29,7 +29,8 @@ async def files(ctx):
     for i in liste:
         s+=i+"\n"
 
-    ausgabe = s.replace("files\\","")
+    a = s.replace("files\\","")
+    ausgabe = a.replace(".wav","")
     print(ausgabe)
     embed = discord.Embed(title="Alle Files", description=ausgabe, color=0x00dbc2)
     await ctx.channel.send(embed=embed)
@@ -38,7 +39,7 @@ async def files(ctx):
 @bot.command()
 async def p(ctx,audio):
     """
-    -p eingeben und filename aus dem -file command wählen
+    -p eingeben und filename aus dem -file command wählen, bsp: -p mommy
     """
 
     path = os.getcwd()
